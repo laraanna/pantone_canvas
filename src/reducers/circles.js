@@ -3,7 +3,7 @@ const defaultState = () => ({
     circles: [
         {
             color: '#DA4167',
-            enabled: false,
+            enabled: true,
             x: 200,
             y: 200
         }, {

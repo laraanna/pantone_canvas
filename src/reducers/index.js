@@ -1,5 +1,5 @@
-import drawings from './drawings'
+import circles from './circles'
 
 export default {
-  drawings: drawings
+  circles: circles
 }

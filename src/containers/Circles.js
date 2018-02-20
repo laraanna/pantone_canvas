@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import './Circle.css'
+import './Circles.css'
 
 
 let mapStateToProps    = (state)    => state;
 let mapDispatchToProps = (dispatch) => ({});
 
-class Circle extends Component {
+class Circles extends Component {
   componentDidMount(){
     this.refs.canvas.width = 400;
     this.refs.canvas.height = 400;
@@ -20,16 +20,26 @@ class Circle extends Component {
   }
 
   renderCanvas(props){
-    this.ctx.fillStyle= '#000';
+    this.ctx.fillStyle= 'beige';
     this.ctx.fillRect(0,0,this.refs.canvas.width, this.refs.canvas.height)
+
+    for (let circle in props.circles) {
+
+      this.ctx.beginPath();
+      this.ctx.arc(circle.x, circle.y, props.circleRadius, 0, 2 * Math.PI, false);
+      this.ctx.fillStyle = circle.color;
+      console.log(circle.color)
+      this.ctx.fill();
+
+    }
   }
   render(){
     return(
-      <div className="Circle">
+      <div className="Circles">
         <canvas ref="canvas"/>
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Circle);
+export default connect(mapStateToProps, mapDispatchToProps)(Circles);
