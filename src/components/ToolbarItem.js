@@ -1,10 +1,16 @@
 import React, {Component} from 'react'
+import classnames from 'classnames'
 
 class ToolbarItem extends Component {
   render(){
     return(
-      <div className="ToolbarItem">
-      </div>
+      <li
+        className={classnames('toolbar_item', {
+          'active': this.props.enabled
+        })}
+        onClick={this.props.onClick}>
+        <span style={{backgroundColor: this.props.color}}/>
+      </li>
     )
   }
 }
