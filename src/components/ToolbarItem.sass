@@ -1,8 +1,9 @@
 .toolbar
+  background-color: #e8f2f2
   list-style-type: none
+  padding: 4%
   &__item
     display: block
-    border: 2px solid #a5a5a5
     transition: border 300ms
     cursor: pointer
     padding: 10px
@@ -13,22 +14,24 @@
 .toolbar_item > span
   opacity: .5
   display: block
-  width: 50px
-  height: 50px
+  width: 140px
+  height: 110px
   margin: auto
-  border-radius: 50%
   transition: opacity 300ms
 
 .toolbar.active, .toolbar:hover > span
   opacity: 1
 
 .toolbar_item
-  display: block
-  border: 2px solid #a5a5a5
+  display: inline-block
   transition: border 300ms
   cursor: pointer
-  padding: 10px
-  margin: 10px 0
+  margin: 10px 10px
+  background-color: #ffffff
+  box-shadow: #e3e3e3 2px 2px
 
 .toolbar.active
   border-color: #222
+
+h4, p
+  padding: 0 8px

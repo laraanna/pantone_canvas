@@ -11,6 +11,8 @@ class ToolbarItem extends Component {
         })}
         onClick={this.props.onClick}>
         <span style={{backgroundColor: this.props.color}}/>
+        <h4>PANTONE <sup> {String.fromCharCode(174)} </sup></h4>
+        <p>{this.props.color}</p>
       </li>
     )
   }

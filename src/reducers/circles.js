@@ -2,43 +2,43 @@ const defaultState = () => ({
   circleRadius: 80,
   circles: [
     {
-      color: '#eff0ea',
+      color: '#EFF0EA',
       enabled: false,
       x: 400,
       y: 400
     },
     {
-      color: '#d2ddcf',
+      color: '#D2DDCF',
       enabled: false,
       x: 400,
       y: 400
     },
     {
-      color: '#feecd4',
+      color: '#FEECD4',
       enabled: false,
       x: 400,
       y: 400
     },
     {
-      color: '#ecc7b4',
+      color: '#ECC7B4',
       enabled: false,
       x: 400,
       y: 400
     },
     {
-      color: '#fcb3a4',
+      color: '#FCB3A4',
       enabled: false,
       x: 400,
       y: 400
     },
     {
-      color: '#e8dbfb',
+      color: '#E8DBFB',
       enabled: false,
       x: 400,
       y: 400
     },
     {
-      color: '#000',
+      color: '#000000',
       enabled: false,
       x: 400,
       y: 400

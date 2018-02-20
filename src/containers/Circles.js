@@ -13,7 +13,7 @@ let mapDispatchToProps = (dispatch) => ({
 
 class Circles extends Component {
   componentDidMount(){
-    this.refs.canvas.width = 600;
+    this.refs.canvas.width = 800;
     this.refs.canvas.height = 800;
     this.ctx = this.refs.canvas.getContext('2d');
 
@@ -130,6 +130,7 @@ class Circles extends Component {
               key={key}
               color={item.color}
               enabled={item.enabled}
+              name={item.name}
               onClick={() => this.props.toggleCircle(key)} />
           ))}
         </ul>
