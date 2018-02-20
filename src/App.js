@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DrawBoard from './components/DrawBoard'
+import Circle from './containers/circle';
 import './App.css';
 
 class App extends Component {
@@ -10,7 +11,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1> Sketch it </h1>
-        <DrawBoard />
+        <Circle />
       </div>
     );
   }
