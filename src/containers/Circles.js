@@ -35,23 +35,26 @@ class Circles extends Component {
   renderCanvas(props){
     this.ctx.fillStyle= '#fff';
     this.ctx.fillRect(0,0,this.refs.canvas.width, this.refs.canvas.height)
-    for (let circle in props.circles.circles) {
-      this.ctx.beginPath();
-      this.ctx.arc(circle.x, circle.y, props.circleRadius, 0, 2 * Math.PI, false);
-      this.ctx.fillStyle = circle.color;
-      console.log(circle.color)
-      this.ctx.fill();
+    for (let circle of props.circles.circles) {
+      if (circle.enabled){
+        console.log(circle)
+        this.ctx.beginPath();
+        this.ctx.arc(circle.x, circle.y, props.circles.circleRadius, 0, 2 * Math.PI, false);
+        this.ctx.fillStyle = circle.color;
+        this.ctx.fill();
+      }
     }
   }
+
   render(){
     return(
       <div className="app-wrapper">
         <div className="canvas-wrapper">
           <canvas
             ref="canvas"
-            onMouseDown={this._mouseDown.bind(this)}
+          /*  onMouseDown={this._mouseDown.bind(this)}
             onMouseMove={this._mouseMove.bind(this)}
-            onMouseUp={this._mouseUp.bind(this)}
+            onMouseUp={this._mouseUp.bind(this)} */
           />
         </div>
         <ul className="toolbar">
