@@ -16,8 +16,16 @@ class Circles extends Component {
     this.refs.canvas.height = 800;
     this.ctx = this.refs.canvas.getContext('2d');
 
+    this.helpers = {
+      dragging: false,    // true if user is dragging any circle
+      circle: null,       // id of dragged circle
+      offsetX: 0,         // x distance between click point and center of dragged circle
+      offsetY: 0,         // y distance between click point and center of dragged circle
+      x: 0,               // updated x
+      y: 0                // updated y
+    };
+
     this.renderCanvas(this.props);
-    console.log(this.props.circles.circles)
   }
 
   componentWillReceiveProps(nextProps){
