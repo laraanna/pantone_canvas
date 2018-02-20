@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import DrawBoard from './components/DrawBoard'
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+  }
   render() {
     return (
       <div className="App">
-        <h1> Sktech it </h1>
+        <h1> Sketch it </h1>
+        <DrawBoard />
       </div>
     );
   }
