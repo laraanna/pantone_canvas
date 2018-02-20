@@ -29,6 +29,14 @@ export default (state = defaultState(), action) => {
           circles
         })
       }
+      case 'MOVE_CIRCLE':{
+        let circles = [...state.circles];
+        circles[action.circleIndex].x = action.x;
+        circles[action.circleIndex].y = action.y;
+        return Object.assign({}, state, {
+          circles
+        });
+      }
         default:
             return state;
     }
