@@ -1,10 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import './Circles.css'
+import ToolbarItem from '../components/ToolbarItem';
+import { toggleCircle } from '../actions/circles';
 
 
 let mapStateToProps    = (state)    => state;
-let mapDispatchToProps = (dispatch) => ({});
+let mapDispatchToProps = (dispatch) => ({
+  toggleCircle: index => dispatch(toggleCircle(index))
+});
 
 class Circles extends Component {
   componentDidMount(){
@@ -13,6 +17,7 @@ class Circles extends Component {
     this.ctx = this.refs.canvas.getContext('2d');
 
     this.renderCanvas(this.props);
+    console.log(this.props.circles.circles)
   }
 
   componentWillReceiveProps(nextProps){
@@ -23,7 +28,7 @@ class Circles extends Component {
     this.ctx.fillStyle= 'beige';
     this.ctx.fillRect(0,0,this.refs.canvas.width, this.refs.canvas.height)
 
-    for (let circle in props.circles) {
+    for (let circle in props.circles.circles) {
 
       this.ctx.beginPath();
       this.ctx.arc(circle.x, circle.y, props.circleRadius, 0, 2 * Math.PI, false);
@@ -35,11 +40,22 @@ class Circles extends Component {
   }
   render(){
     return(
-      <div className="Circles">
-        <canvas ref="canvas"/>
+      <div className="app-wrapper">
+        <div className="canvas-wrapper">
+          <canvas ref="canvas"/>
+        </div>
+        <ul className='toolbar'>
+          {this.props.circles.circles.map((item, key) => (
+            <ToolbarItem
+              key={key}
+              color={item.color}
+              enabled={item.enabled}
+              onClick={() => this.props.toggleCircle(key)} />
+          ))}
+        </ul>
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Circles);
+export default connect(({circles}) => ({circles}), mapDispatchToProps)(Circles);
