@@ -22,6 +22,13 @@ const defaultState = () => ({
 
 export default (state = defaultState(), action) => {
     switch (action.type) {
+      case 'TOGGLE_CIRCLE': {
+        let circles = [...state.circles];
+        circles[action.circleIndex].enabled = !circles[action.circleIndex].enabled;
+        return Object.assign({}, state, {
+          circles
+        })
+      }
         default:
             return state;
     }
