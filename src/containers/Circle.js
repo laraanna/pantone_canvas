@@ -6,10 +6,15 @@ let mapStateToProps    = (state)    => state;
 let mapDispatchToProps = (dispatch) => ({});
 
 class Circle extends Component {
+  componentDidMount(){
+    this.refs.canvas.width = 400;
+    this.refs.canvas.height = 400;
+    this.ctx = this.refs.canvas.getContext('2d');
+  }
   render(){
     return(
       <div className="Circle">
-        <canvas />
+        <canvas ref="canvas"/>
       </div>
     )
   }
