@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DrawBoard from './components/DrawBoard'
-import Circle from './containers/circle';
+import Circle from './containers/Circle';
 import './App.css';
 
 class App extends Component {
