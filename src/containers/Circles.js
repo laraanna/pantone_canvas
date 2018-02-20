@@ -12,8 +12,8 @@ let mapDispatchToProps = (dispatch) => ({
 
 class Circles extends Component {
   componentDidMount(){
-    this.refs.canvas.width = 400;
-    this.refs.canvas.height = 400;
+    this.refs.canvas.width = 600;
+    this.refs.canvas.height = 800;
     this.ctx = this.refs.canvas.getContext('2d');
 
     this.renderCanvas(this.props);
@@ -25,7 +25,7 @@ class Circles extends Component {
   }
 
   renderCanvas(props){
-    this.ctx.fillStyle= 'beige';
+    this.ctx.fillStyle= '#fff';
     this.ctx.fillRect(0,0,this.refs.canvas.width, this.refs.canvas.height)
 
     for (let circle in props.circles.circles) {
@@ -44,7 +44,7 @@ class Circles extends Component {
         <div className="canvas-wrapper">
           <canvas ref="canvas"/>
         </div>
-        <ul className='toolbar'>
+        <ul className="toolbar">
           {this.props.circles.circles.map((item, key) => (
             <ToolbarItem
               key={key}

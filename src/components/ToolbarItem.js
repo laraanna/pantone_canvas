@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import classnames from 'classnames'
+import './ToolbarItem.css'
 
 class ToolbarItem extends Component {
   render(){
