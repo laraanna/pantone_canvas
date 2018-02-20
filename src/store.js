@@ -1,8 +1,7 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
+import reducers from './reducers/circles'
 
-import reducers from './reducers'
-const reducer = combineReducers(reducers)
 
 const devTools = window.devToolsExtension ? window.devToolsExtension() : (f) => f
 
@@ -11,6 +10,6 @@ const enhancer = compose(
   devTools
 )
 
-const store = createStore(reducer, enhancer)
+const store = createStore(reducers, enhancer)
 
 export default store

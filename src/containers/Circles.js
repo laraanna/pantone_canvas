@@ -2,12 +2,13 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import './Circles.css'
 import ToolbarItem from '../components/ToolbarItem';
-import { toggleCircle } from '../actions/circles';
+import { toggleCircle, moveCircle } from '../actions/circles';
 
 
 let mapStateToProps    = (state)    => state;
 let mapDispatchToProps = (dispatch) => ({
-  toggleCircle: index => dispatch(toggleCircle(index))
+  toggleCircle: index => dispatch(toggleCircle(index)),
+  moveCircle: (index, x, y) => dispatch(moveCircle(index, x, y))
 });
 
 class Circles extends Component {
@@ -26,6 +27,7 @@ class Circles extends Component {
     };
 
     this.renderCanvas(this.props);
+    console.log(this.props)
   }
 
   componentWillReceiveProps(nextProps){
@@ -35,16 +37,81 @@ class Circles extends Component {
   renderCanvas(props){
     this.ctx.fillStyle= '#fff';
     this.ctx.fillRect(0,0,this.refs.canvas.width, this.refs.canvas.height)
-    for (let circle of props.circles.circles) {
+    for (let circle of props.circles) {
+      console.log(props.circles)
       if (circle.enabled){
-        console.log(circle)
         this.ctx.beginPath();
-        this.ctx.arc(circle.x, circle.y, props.circles.circleRadius, 0, 2 * Math.PI, false);
+        this.ctx.arc(circle.x, circle.y, props.circleRadius, 0, 2 * Math.PI, false);
         this.ctx.fillStyle = circle.color;
         this.ctx.fill();
       }
     }
   }
+
+  _mouseDown(e) {
+     // get coordinates
+     let x = e.nativeEvent.offsetX;
+     let y = e.nativeEvent.offsetY;
+     let r = this.props.circleRadius;
+
+     // loop through circles and check if coordinates are in any circle
+     for (let i = this.props.circles.length - 1; i >= 0; i--) {
+         let cx = this.props.circles[i].x;
+         let cy = this.props.circles[i].y;
+
+         // check if user clicked any circle
+         if (
+             Math.pow((x - cx), 2) + Math.pow((y - cy), 2) <= Math.pow(r, 2)
+             && this.props.circles[i].enabled
+         ) {
+             // save helpers and exit function
+             this.helpers.circle = i;
+             this.helpers.dragging = true;
+             this.helpers.offsetX = cx - x;
+             this.helpers.offsetY = cy - y;
+             this.helpers.x = cx;
+             this.helpers.y = cy;
+             return;
+         }
+     }
+ }
+
+ _mouseMove(e) {
+     // skip if user didn't click any circle
+     if (!this.helpers.dragging) return;
+
+     // get coordinates
+     let x = e.nativeEvent.offsetX;
+     let y = e.nativeEvent.offsetY;
+
+     // create a copy of circles array
+     let circles = [...this.props.circles];
+     console.log(circles)
+
+     // update helpers
+     this.helpers.x = x + this.helpers.offsetX;
+     console.log(x + this.helpers.offsetX)
+     this.helpers.y = y + this.helpers.offsetY;
+     console.log(this.helpers.offsetY)
+
+     // set new coordinates of circles
+     circles[this.helpers.circle].x = this.helpers.x;
+     circles[this.helpers.circle].y = this.helpers.y;
+
+     //rerender canvas
+     this.renderCanvas(Object.assign({}, this.props, {
+       circles
+     }));
+ }
+
+ _mouseUp(e) {
+     this.helpers.dragging = false;
+     if (this.helpers.circle !== null) {
+         // dispatch action to update redux state
+         this.props.moveCircle(this.helpers.circle, this.helpers.x, this.helpers.y);
+         this.helpers.circle = null;
+     }
+ }
 
   render(){
     return(
@@ -52,13 +119,13 @@ class Circles extends Component {
         <div className="canvas-wrapper">
           <canvas
             ref="canvas"
-          /*  onMouseDown={this._mouseDown.bind(this)}
+            onMouseDown={this._mouseDown.bind(this)}
             onMouseMove={this._mouseMove.bind(this)}
-            onMouseUp={this._mouseUp.bind(this)} */
+            onMouseUp={this._mouseUp.bind(this)}
           />
         </div>
         <ul className="toolbar">
-          {this.props.circles.circles.map((item, key) => (
+          {this.props.circles.map((item, key) => (
             <ToolbarItem
               key={key}
               color={item.color}
@@ -71,4 +138,4 @@ class Circles extends Component {
   }
 }
 
-export default connect(({circles}) => ({circles}), mapDispatchToProps)(Circles);
+export default connect(mapStateToProps, mapDispatchToProps)(Circles);

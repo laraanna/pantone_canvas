@@ -1,23 +1,23 @@
 const defaultState = () => ({
-  circleRadius: 40,
+  circleRadius: 70,
   circles: [
     {
       color: '#DA4167',
       enabled: false,
-      x: 200,
-      y: 200
+      x: 400,
+      y: 400
     },
     {
       color: '#F4D35E',
       enabled: false,
-      x: 200,
-      y: 200
+      x: 400,
+      y: 400
     },
     {
       color: '#F78764',
       enabled: false,
-      x: 200,
-      y: 200
+      x: 400,
+      y: 400
     }
   ]
 });
@@ -37,7 +37,7 @@ export default (state = defaultState(), action) => {
         circles[action.circleIndex].y = action.y;
         return Object.assign({}, state, {
           circles
-        });
+        })
       }
         default:
             return state;
